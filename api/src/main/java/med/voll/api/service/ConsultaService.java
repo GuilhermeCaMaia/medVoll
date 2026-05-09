@@ -1,6 +1,7 @@
-package med.voll.api.domain.consulta;
+package med.voll.api.service;
 
 import med.voll.api.domain.ValidacaoException;
+import med.voll.api.domain.consulta.Consulta;
 import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
 import med.voll.api.domain.consulta.validacoes.cancelamento.ValidadorCancelamentoDeConsulta;
 import med.voll.api.domain.medico.Medico;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AgendaDeConsultas {
+public class ConsultaService {
     @Autowired
     private ConsultaRepository consultaRepository;
 

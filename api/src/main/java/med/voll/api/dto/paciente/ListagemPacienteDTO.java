@@ -2,13 +2,13 @@ package med.voll.api.dto.paciente;
 
 import med.voll.api.domain.paciente.Paciente;
 
-public record DadosListagemPaciente(
+public record ListagemPacienteDTO(
         Long id,
         String nome,
         String email,
         String cpf
 ) {
-    public DadosListagemPaciente(Paciente paciente){
+    public ListagemPacienteDTO(Paciente paciente){
         this(
                 paciente.getId(),
                 paciente.getNome(),

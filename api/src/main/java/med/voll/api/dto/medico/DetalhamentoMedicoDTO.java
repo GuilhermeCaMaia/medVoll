@@ -4,7 +4,7 @@ import med.voll.api.domain.endereco.Endereco;
 import med.voll.api.domain.medico.Especialidade;
 import med.voll.api.domain.medico.Medico;
 
-public record DadosDetalhamentoMedico(
+public record DetalhamentoMedicoDTO(
         Long id,
         String nome,
         String email,
@@ -13,7 +13,7 @@ public record DadosDetalhamentoMedico(
         Especialidade especialidade,
         Endereco endereco
 ) {
-    public DadosDetalhamentoMedico(Medico medico){
+    public DetalhamentoMedicoDTO(Medico medico){
         this(
                 medico.getId(), medico.getNome(), medico.getEmail(), medico.getCrm(),
                 medico.getTelefone(), medico.getEspecialidade(), medico.getEndereco()

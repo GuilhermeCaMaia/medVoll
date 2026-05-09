@@ -1,9 +1,11 @@
 package med.voll.api.domain.medico;
 
 import med.voll.api.domain.consulta.Consulta;
-import med.voll.api.domain.endereco.DadosEndereco;
-import med.voll.api.domain.paciente.DadosCadastroPaciente;
+import med.voll.api.dto.endereco.EnderecoDTO;
+import med.voll.api.dto.paciente.CadastroPacienteDTO;
 import med.voll.api.domain.paciente.Paciente;
+import med.voll.api.dto.medico.CadastroMedicoDTO;
+import med.voll.api.repository.MedicoRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -89,8 +90,8 @@ class MedicoRepositoryTest {
         return paciente;
     }
 
-    private DadosCadastroMedico dadosMedico(String nome, String email, String crm, Especialidade especialidade) {
-        return new DadosCadastroMedico(
+    private CadastroMedicoDTO dadosMedico(String nome, String email, String crm, Especialidade especialidade) {
+        return new CadastroMedicoDTO(
                 nome,
                 email,
                 "61999999999",
@@ -100,8 +101,8 @@ class MedicoRepositoryTest {
         );
     }
 
-    private DadosCadastroPaciente dadosPaciente(String nome, String email, String cpf) {
-        return new DadosCadastroPaciente(
+    private CadastroPacienteDTO dadosPaciente(String nome, String email, String cpf) {
+        return new CadastroPacienteDTO(
                 nome,
                 email,
                 "61999999999",
@@ -110,8 +111,8 @@ class MedicoRepositoryTest {
         );
     }
 
-    private DadosEndereco dadosEndereco() {
-        return new DadosEndereco(
+    private EnderecoDTO dadosEndereco() {
+        return new EnderecoDTO(
                 "rua xpto",
                 "bairro",
                 "00000000",

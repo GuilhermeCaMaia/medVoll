@@ -1,8 +1,8 @@
 package med.voll.api.controller;
 
-import med.voll.api.domain.consulta.AgendaDeConsultas;
-import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
-import med.voll.api.domain.consulta.DadosDetalhamentoConsulta;
+import med.voll.api.service.ConsultaService;
+import med.voll.api.dto.consulta.AgendamentoConsultaDTO;
+import med.voll.api.dto.consulta.DetalhamentoConsultaDTO;
 import med.voll.api.domain.medico.Especialidade;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -34,13 +33,13 @@ class ConsultaControllerTest {
     private MockMvc mvc;
 
     @MockitoBean
-    private AgendaDeConsultas agendaDeConsultas;
+    private ConsultaService consultaService;
 
     @Autowired
-    private JacksonTester<DadosAgendamentoConsulta> dadosAgendamentoConsultaJson;
+    private JacksonTester<AgendamentoConsultaDTO> dadosAgendamentoConsultaJson;
 
     @Autowired
-    private JacksonTester<DadosDetalhamentoConsulta> dadosDetalhamentoConsultaJson;
+    private JacksonTester<DetalhamentoConsultaDTO> dadosDetalhamentoConsultaJson;
 
     @Test
     @DisplayName("Deveria devolver codigo http 400 quando informacoes estao invalidas")
@@ -62,20 +61,20 @@ class ConsultaControllerTest {
         var data = LocalDateTime.now().plusHours(1);
         var especialidade = Especialidade.CARDIOLOGIA;
         // Act ou When
-        var dadosDetalhamento = new DadosDetalhamentoConsulta(null, 2l, 5l, data);
-        when(agendaDeConsultas.agendar(any())).thenReturn(dadosDetalhamento);
+        var dadosDetalhamento = new DetalhamentoConsultaDTO(null, 2l, 5l, data);
+        when(consultaService.agendar(any())).thenReturn(dadosDetalhamento);
 
         var response = mvc.perform(post("/consultas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(dadosAgendamentoConsultaJson.write(
-                                new DadosAgendamentoConsulta(2l, 5l, data, especialidade)
+                                new AgendamentoConsultaDTO(2l, 5l, data, especialidade)
                         ).getJson()))
                 .andReturn().getResponse();
 
         //Assert ou then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         var jsonEsperado = dadosDetalhamentoConsultaJson.write(
-                new DadosDetalhamentoConsulta(null, 2l, 5l, data)
+                new DetalhamentoConsultaDTO(null, 2l, 5l, data)
         ).getJson();
 
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
