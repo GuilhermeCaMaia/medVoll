@@ -4,8 +4,12 @@ import med.voll.api.domain.ValidacaoException;
 import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
 import med.voll.api.domain.consulta.validacoes.cancelamento.ValidadorCancelamentoDeConsulta;
 import med.voll.api.domain.medico.Medico;
-import med.voll.api.domain.medico.MedicoRepository;
-import med.voll.api.domain.paciente.PacienteRepository;
+import med.voll.api.repository.MedicoRepository;
+import med.voll.api.repository.PacienteRepository;
+import med.voll.api.dto.consulta.AgendamentoConsultaDTO;
+import med.voll.api.dto.consulta.CancelamentoConsultaDTO;
+import med.voll.api.dto.consulta.DetalhamentoConsultaDTO;
+import med.voll.api.repository.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +32,7 @@ public class AgendaDeConsultas {
     @Autowired
     private List<ValidadorCancelamentoDeConsulta> validadoresCancelamento;
 
-    public DadosDetalhamentoConsulta agendar(DadosAgendamentoConsulta dados){
+    public DetalhamentoConsultaDTO agendar(AgendamentoConsultaDTO dados){
         if (!pacienteRepository.existsById(dados.idPaciente())){
             throw new ValidacaoException("Id do paciente informado não existe!");
         }
@@ -47,10 +51,10 @@ public class AgendaDeConsultas {
         var consulta = new Consulta(null, medico, paciente, dados.data(), null);
         consultaRepository.save(consulta);
 
-        return new DadosDetalhamentoConsulta(consulta);
+        return new DetalhamentoConsultaDTO(consulta);
     }
 
-    public void cancelar(DadosCancelamentoConsulta dados){
+    public void cancelar(CancelamentoConsultaDTO dados){
         if (!consultaRepository.existsById(dados.idConsulta())){
             throw new ValidacaoException("Id da consulta informado não existe!");
         }
@@ -60,7 +64,7 @@ public class AgendaDeConsultas {
         consulta.cancler(dados.motivo());
     }
 
-    private Medico escolherMedico(DadosAgendamentoConsulta dados) {
+    private Medico escolherMedico(AgendamentoConsultaDTO dados) {
         if (dados.idMedico() != null){
             return medicoRepository.getReferenceById(dados.idMedico());
         }
