@@ -1,6 +1,8 @@
-package med.voll.api.domain.medico;
+package med.voll.api.service;
 
 import med.voll.api.domain.consulta.Consulta;
+import med.voll.api.domain.medico.Especialidade;
+import med.voll.api.domain.medico.Medico;
 import med.voll.api.dto.endereco.EnderecoDTO;
 import med.voll.api.dto.paciente.CadastroPacienteDTO;
 import med.voll.api.domain.paciente.Paciente;
