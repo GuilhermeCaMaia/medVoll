@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.dto.paciente.AtualizacaoPacienteDTO;
+import med.voll.api.dto.paciente.CadastroPacienteDTO;
 
 @Table(name = "pacientes")
 @Entity(name = "Paciente")
@@ -27,7 +29,7 @@ public class Paciente {
 
     private Boolean ativo;
 
-    public Paciente(DadosCadastroPaciente dados) {
+    public Paciente(CadastroPacienteDTO dados) {
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
@@ -36,7 +38,7 @@ public class Paciente {
         this.ativo = true;
     }
 
-    public void atualizarInformacoes(@Valid DadosAtualizacaoPaciente dados){
+    public void atualizarInformacoes(@Valid AtualizacaoPacienteDTO dados){
         if (dados.nome()!=null) {
             this.nome = dados.nome();
         }

@@ -1,8 +1,9 @@
-package med.voll.api.domain.consulta;
+package med.voll.api.dto.consulta;
 
 import jakarta.validation.constraints.NotNull;
+import med.voll.api.domain.consulta.MotivoCancelamento;
 
-public record DadosCancelamentoConsulta(
+public record CancelamentoConsultaDTO(
         @NotNull
         Long idConsulta,
 

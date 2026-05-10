@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
 import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.dto.medico.AtualizacaoMedicoDTO;
+import med.voll.api.dto.medico.CadastroMedicoDTO;
 
 @Table(name = "medicos")
 @Entity(name = "Medico")
@@ -27,7 +29,7 @@ public class Medico {
 
     private Boolean ativo;
 
-    public Medico(DadosCadastroMedico dados) {
+    public Medico(CadastroMedicoDTO dados) {
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
@@ -37,7 +39,7 @@ public class Medico {
         this.ativo = true;
     }
 
-    public void atualizarInformacoes(@Valid DadosAtualizacaoMedico dados) {
+    public void atualizarInformacoes(@Valid AtualizacaoMedicoDTO dados) {
         if (dados.nome()!=null) {
             this.nome = dados.nome();
         }
