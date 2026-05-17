@@ -1,4 +1,4 @@
-package med.voll.api.service;
+package med.voll.api.repository;
 
 import med.voll.api.domain.consulta.Consulta;
 import med.voll.api.domain.medico.Especialidade;
@@ -7,7 +7,6 @@ import med.voll.api.dto.endereco.EnderecoDTO;
 import med.voll.api.dto.paciente.CadastroPacienteDTO;
 import med.voll.api.domain.paciente.Paciente;
 import med.voll.api.dto.medico.CadastroMedicoDTO;
-import med.voll.api.repository.MedicoRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

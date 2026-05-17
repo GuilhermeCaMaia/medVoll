@@ -40,7 +40,7 @@ public class PacienteService {
     }
 
     @Transactional
-    public void delete(Long id){
+    public void excluir(Long id){
         var paciente = pacienteRepository.getReferenceById(id);
         paciente.excluir();
     }

@@ -51,7 +51,7 @@ public class PacienteController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deletar(@PathVariable Long id){
-        pacienteService.delete(id);
+        pacienteService.excluir(id);
         return ResponseEntity.noContent().build();
     }
 
