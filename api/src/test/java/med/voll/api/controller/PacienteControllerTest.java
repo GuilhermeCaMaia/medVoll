@@ -21,8 +21,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
@@ -59,7 +58,7 @@ class PacienteControllerTest {
     }
 
     @Test
-    @DisplayName("Deveria devolver codigo http 200 quando cadastrar paciente")
+    @DisplayName("Deveria devolver codigo http 201 quando cadastrar paciente")
     @WithMockUser
     void cadastrarCenario2() throws Exception {
         // ARRANGE
@@ -79,11 +78,12 @@ class PacienteControllerTest {
                 "11122233345",
                 new Endereco(dadosEndereco())
         );
+        when(pacienteService.cadastrar(any())).thenReturn(detalhamentoPaciente);
         // ACT
         var response = mvc.perform(
                 post("/pacientes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(detalhamentoPacienteDTO.write(detalhamentoPaciente).getJson())
+                        .content(cadastroPacienteDTO.write(dadosCadastro).getJson())
         ).andReturn().getResponse();
         // ASSERT
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());

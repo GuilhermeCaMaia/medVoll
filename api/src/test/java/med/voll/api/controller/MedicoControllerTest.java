@@ -86,7 +86,7 @@ class MedicoControllerTest {
         var response = mvc.perform(
                 post("/medicos")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(detalhamentoMedicoDTO.write(detalhamentoMedico).getJson())
+                .content(cadastroMedicoDTO.write(dadosCadastro).getJson())
         ).andReturn().getResponse();
 
         // ASSERT
